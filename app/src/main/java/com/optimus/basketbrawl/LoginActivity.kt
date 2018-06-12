@@ -20,9 +20,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.content.Intent;
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.util.Log
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -46,8 +48,20 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             }
             false
         })
-
-        email_sign_in_button.setOnClickListener { attemptLogin() }
+        var purpose = intent.getStringExtra("purpose")
+        if (purpose == "signup") {
+            email_sign_in_button.setOnClickListener {
+                attemptLogin()
+                Log.d("INFO", "JAKE SIGN UP")
+//                Open Info Activity
+            }
+        } else if (purpose == "login") {
+            email_sign_in_button.setOnClickListener {
+                attemptLogin()
+                Log.d("INFO", "JAKE LOG IN")
+//                Go to Courtlist view
+            }
+        }
     }
 
     /**

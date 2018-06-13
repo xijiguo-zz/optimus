@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         val courtFragment = CourtFragment()
         val gameFragment = GameFragment()
-        val profileFragment = CourtFragment()
+        val profileFragment = ProfileFragment()
         adapter.addFragment(courtFragment, "Court List")
         adapter.addFragment(gameFragment, "My Games")
         adapter.addFragment(profileFragment, "Profile")

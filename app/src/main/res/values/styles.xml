@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="bottomNavigationStyle">@style/bottomNavigationStyle</item>
     </style>
-
+    <style name="bottomNavigationStyle">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="itemBackground">@color/colorPrimary</item>
+        <item name="itemIconTint">@color/bottom_nav_color</item>
+        <item name="itemTextColor">@color/bottom_nav_color</item>
+    </style>
 </resources>

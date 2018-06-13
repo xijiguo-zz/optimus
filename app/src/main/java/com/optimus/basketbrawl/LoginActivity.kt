@@ -45,20 +45,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             }
             false
         })
-        var purpose = intent.getStringExtra("purpose")
-        if (purpose == "signup") {
-            email_sign_in_button.setOnClickListener {
-                attemptLogin()
-                Log.d("INFO", "JAKE SIGN UP")
-//                Open Info Activity
-            }
-        } else if (purpose == "login") {
-            email_sign_in_button.setOnClickListener {
-                attemptLogin()
-                Log.d("INFO", "JAKE LOG IN")
-//                Go to Courtlist view
-            }
+
+        email_sign_in_button.setOnClickListener {
+            attemptLogin()
         }
+
     }
 
     /**
@@ -238,8 +229,16 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(false)
 
             if (success!!) {
+                val purpose = intent.getStringExtra("purpose")
+
                 val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
-                startActivity(homeviewIntent)
+
+                if (purpose == "signup") {
+                    Log.d("INFO", "JAKE SIGN UP")
+                } else if (purpose == "login") {
+                    startActivity(homeviewIntent)
+                    Log.d("INFO", "JAKE LOG IN")
+                }
             } else {
                 password.error = getString(R.string.error_incorrect_password)
                 password.requestFocus()

@@ -10,23 +10,26 @@ import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [CourtFragment.OnFragmentInteractionListener] interface
+ * [GameFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [CourtFragment.newInstance] factory method to
+ * Use the [GameFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class CourtFragment : Fragment() {
+class GameFragment : Fragment() {
 
-    private var listitems: ArrayList<CourtModel> = ArrayList()
+    private var listitems: ArrayList<GameModel> = ArrayList()
     private var mRecyclerView: RecyclerView? = null
-    private var courts = arrayOf("CIF 1", "CIF 2", "REV")
-    private var images = intArrayOf(R.drawable.court_small, R.drawable.court_small, R.drawable.court_small)
+    private var games = arrayOf("Game 1", "Game 2", "Game 3")
+    private var dates = arrayListOf<Calendar>(Calendar.getInstance(),
+            Calendar.getInstance(), Calendar.getInstance())
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,21 +52,19 @@ class CourtFragment : Fragment() {
         return view
     }
 
-    inner class MyAdapter(private val list: ArrayList<CourtModel>) : RecyclerView.Adapter<MyViewHolder>() {
+    inner class MyAdapter(private val list: ArrayList<GameModel>) : RecyclerView.Adapter<MyViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
             // create a new view
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.recycle_items_court, parent, false)
+                    .inflate(R.layout.recycle_items_game, parent, false)
             return MyViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-            holder.titleTextView.text = list[position].courtName
-            holder.coverImageView.setImageResource(list[position].imageResourceId)
-            holder.coverImageView.tag = list[position].imageResourceId
-
+            holder.gameNameTextView.text = list[position].gameName
+            val dateFormat = SimpleDateFormat.getDateInstance()
+            holder.gameStartTextView.text = dateFormat.format(list[position].startTime!!.time)
         }
 
         override fun getItemCount(): Int {
@@ -73,18 +74,23 @@ class CourtFragment : Fragment() {
 
     inner class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
-        var titleTextView: TextView = v.findViewById<View>(R.id.court_name_text_view) as TextView
-        var coverImageView: ImageView = v.findViewById(R.id.court_cover_image) as ImageView
+        var gameNameTextView: TextView = v.findViewById<View>(R.id.card_game_name) as TextView
+        var gameStartTextView: TextView = v.findViewById(R.id.card_game_start) as TextView
 
     }
 
     private fun initializeList() {
+        if (listitems.isEmpty()) {
+            dates[1].add(Calendar.DATE, 2)
+            dates[2].add(Calendar.DATE, 4)
+        }
+
         listitems.clear()
 
         for (i in 0..2) {
-            val item = CourtModel()
-            item.courtName = courts[i]
-            item.imageResourceId = images[i]
+            val item = GameModel()
+            item.gameName = games[i]
+            item.startTime = dates[i]
             listitems.add(item)
         }
     }
@@ -98,6 +104,6 @@ class CourtFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() = CourtFragment()
+        fun newInstance() = GameFragment()
     }
 }

@@ -14,19 +14,22 @@ class HomeActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navigation_courts -> {
 //                message.setText(R.string.title_home)
                 pager.currentItem = 0
+                changeTitle(pager.adapter!!.getPageTitle(0))
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
+            R.id.navigation_games -> {
 //                message.setText(R.string.title_dashboard)
                 pager.currentItem = 1
+                changeTitle(pager.adapter!!.getPageTitle(1))
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            R.id.navigation_profile -> {
 //                message.setText(R.string.title_notifications)
                 pager.currentItem = 2
+                changeTitle(pager.adapter!!.getPageTitle(2))
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -36,12 +39,16 @@ class HomeActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         val courtFragment = CourtFragment()
-        val gameFragment = CourtFragment()
+        val gameFragment = GameFragment()
         val profileFragment = ProfileFragment()
-        adapter.addFragment(courtFragment, "Court")
-        adapter.addFragment(gameFragment, "Game")
+        adapter.addFragment(courtFragment, "Court List")
+        adapter.addFragment(gameFragment, "My Games")
         adapter.addFragment(profileFragment, "Profile")
         viewPager.adapter = adapter
+    }
+
+    private fun changeTitle(titleName: CharSequence?) {
+        title = titleName
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +58,8 @@ class HomeActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         setupViewPager(pager)
+
+        title = pager.adapter!!.getPageTitle(0)
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -64,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
                     navigation.menu.getItem(0).isChecked = false
                 }
                 navigation.menu.getItem(position).isChecked = true
+                changeTitle(pager.adapter!!.getPageTitle(position))
                 prevMenuItem = navigation.menu.getItem(position)
 
             }

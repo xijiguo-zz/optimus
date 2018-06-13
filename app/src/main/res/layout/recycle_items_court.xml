@@ -5,10 +5,11 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_margin="5dp"
+    android:padding="@dimen/card_margin"
     card_view:cardCornerRadius="4dp">
 
     <ImageView
-        android:id="@+id/cover_image_view"
+        android:id="@+id/court_cover_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -16,7 +17,7 @@
         />
 
     <TextView
-        android:id="@+id/title_text_view"
+        android:id="@+id/court_name_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"

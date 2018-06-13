@@ -46,57 +46,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             false
         })
 
-        val purpose:String = intent.getStringExtra("purpose")
         email_sign_in_button.setOnClickListener {
-            if (purpose == "login") {
-                attemptLogin()
-            }
-            else {
-                attemptSignUp()
-            }
-        }
-    }
-
-    private fun attemptSignUp() {
-        // Reset errors.
-        email.error = null
-        password.error = null
-
-        // Store values at the time of the login attempt.
-        val emailStr = email.text.toString()
-        val passwordStr = password.text.toString()
-
-        var cancel = false
-        var focusView: View? = null
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
-            password.error = getString(R.string.error_invalid_password)
-            focusView = password
-            cancel = true
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(emailStr)) {
-            email.error = getString(R.string.error_field_required)
-            focusView = email
-            cancel = true
-        } else if (!isEmailValid(emailStr)) {
-            email.error = getString(R.string.error_invalid_email)
-            focusView = email
-            cancel = true
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView?.requestFocus()
-        } else {
-            // proceed to sign up TO BE DONE!!
-
-            // save email and password, then proceed to info page
-            val intent = Intent(this, SignUpInfoActivity::class.java)
-            startActivity(intent)
+            attemptLogin()
         }
     }
 
@@ -280,8 +231,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 val purpose = intent.getStringExtra("purpose")
 
                 val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
+                val signUpInfoIntent = Intent(applicationContext, SignUpInfoActivity::class.java)
 
                 if (purpose == "signup") {
+                    startActivity(signUpInfoIntent)
                     Log.d("INFO", "JAKE SIGN UP")
                 } else if (purpose == "login") {
                     startActivity(homeviewIntent)

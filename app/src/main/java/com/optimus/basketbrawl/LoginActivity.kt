@@ -3,8 +3,6 @@ package com.optimus.basketbrawl
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
-import android.content.pm.PackageManager
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.app.LoaderManager.LoaderCallbacks
 import android.content.CursorLoader
@@ -20,10 +18,9 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.content.Intent;
+import android.content.Intent
 
 import java.util.ArrayList
-import android.Manifest.permission.READ_CONTACTS
 import android.util.Log
 
 import kotlinx.android.synthetic.main.activity_login.*
@@ -241,7 +238,8 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(false)
 
             if (success!!) {
-                finish()
+                val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
+                startActivity(homeviewIntent)
             } else {
                 password.error = getString(R.string.error_incorrect_password)
                 password.requestFocus()

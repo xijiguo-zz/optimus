@@ -70,11 +70,11 @@ class SignUpInfoActivity : AppCompatActivity() {
         // Check for a valid email address.
         if (nameStr == "") {
             profile_name_editText.error = "Enter Name"
-        } else if (ageInt == null || ageInt < 10 || ageInt > 80) {
+        } else if (ageInt != null && (ageInt < 10 || ageInt > 80)) {
             profile_age_editText.error = "Invalid Age"
-        } else if (weightInt == null || weightInt < 50 || weightInt > 300) {
+        } else if (weightInt != null && (weightInt < 50 || weightInt > 300)) {
             profile_weight_editText.error = "Invalid Weight"
-        } else if (heightInt == null || heightInt < 50 || heightInt > 250) {
+        } else if (heightInt != null && (heightInt < 50 || heightInt > 250)) {
             profile_weight_editText.error = "Invalid Height"
         } else {
             cancel = false

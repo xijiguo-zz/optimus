@@ -49,7 +49,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         email_sign_in_button.setOnClickListener {
             attemptLogin()
         }
-
     }
 
     /**
@@ -232,8 +231,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 val purpose = intent.getStringExtra("purpose")
 
                 val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
+                val signUpInfoIntent = Intent(applicationContext, SignUpInfoActivity::class.java)
 
                 if (purpose == "signup") {
+                    startActivity(signUpInfoIntent)
                     Log.d("INFO", "JAKE SIGN UP")
                 } else if (purpose == "login") {
                     startActivity(homeviewIntent)

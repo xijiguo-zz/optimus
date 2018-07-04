@@ -16,13 +16,15 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/profile_edit_button"
-            android:paddingLeft="@dimen/button_padding"
-            android:paddingRight="@dimen/button_padding"
+            android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="EDIT" />
+            android:focusableInTouchMode="false" android:focusable="false"
+            android:onClick="signoutFirebase"
+            android:paddingLeft="@dimen/button_padding"
+            android:paddingRight="@dimen/button_padding"
+            android:text="LOGOUT" />
 
         <ImageView
             android:id="@+id/profile_blank_imageView"
@@ -162,6 +164,15 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/profile_edit_button"
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="@dimen/button_padding"
+            android:paddingRight="@dimen/button_padding"
+            android:text="EDIT" />
 
     </LinearLayout>
 

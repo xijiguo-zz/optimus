@@ -22,8 +22,6 @@
             android:layout_gravity="center_horizontal"
             android:focusableInTouchMode="false" android:focusable="false"
             android:onClick="signoutFirebase"
-            android:paddingLeft="@dimen/button_padding"
-            android:paddingRight="@dimen/button_padding"
             android:text="LOGOUT" />
 
         <ImageView
@@ -170,8 +168,6 @@
             android:layout_width="97dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:paddingLeft="@dimen/button_padding"
-            android:paddingRight="@dimen/button_padding"
             android:text="EDIT" />
 
     </LinearLayout>

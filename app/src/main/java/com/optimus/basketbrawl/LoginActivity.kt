@@ -61,24 +61,26 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             Log.d("INFO", "JAKE LOG IN")
         }
         email_sign_in_button.setOnClickListener {
-            val emailStr = email.text.toString()
-            val passwordStr = password.text.toString()
             if (checkcredentials() && purpose == "signup") {
-                signup(emailStr,passwordStr)
+                signup()
             } else if (checkcredentials() && purpose == "login") {
-                login(emailStr,passwordStr)
+                login()
             }
         }
     }
 
 
-    private fun signup(emailStr: String, passwordStr: String) {
-        val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
+    private fun signup() {
+        val emailStr = email.text.toString()
+        val passwordStr = password.text.toString()
         val signUpInfoIntent = Intent(applicationContext, SignUpInfoActivity::class.java)
 
         mAuth.createUserWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
                 //mAuth.createUserWithEmailAndPassword("TESTEMAIL@gmail.com", "sdfsda")
+                if (mAuth.currentUser != null) mAuth.signOut()
+                mAuth.signInWithEmailAndPassword(emailStr, passwordStr)
+                mAuth.currentUser?.sendEmailVerification()
                 startActivity(signUpInfoIntent)
             } else {
                 email.error = "Email already in use"
@@ -86,9 +88,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             }
         }
     }
-    private fun login(emailStr: String, passwordStr: String) {
+    private fun login() {
+        val emailStr = email.text.toString()
+        val passwordStr = password.text.toString()
         val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
-        val signUpInfoIntent = Intent(applicationContext, SignUpInfoActivity::class.java)
 
         mAuth.signInWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener { task: Task<AuthResult> ->
             if (task.isSuccessful) {
@@ -114,7 +117,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(emailStr)) {
-            email.error = mAuth.currentUser?.email //getString(R.string.error_field_required)
+            email.error = getString(R.string.error_field_required) //mAuth.currentUser?.email
             focusView = email
             return false
         } else if (!isEmailValid(emailStr)) {
@@ -192,7 +195,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun isPasswordValid(password: String): Boolean {
         //TODO: Replace this with your own logic
-        return password.length > 4
+        return password.length > 5
     }
 
     /**

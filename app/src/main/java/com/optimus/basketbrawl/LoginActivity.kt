@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 //mAuth.createUserWithEmailAndPassword("TESTEMAIL@gmail.com", "sdfsda")
                 if (mAuth.currentUser != null) mAuth.signOut()
                 mAuth.signInWithEmailAndPassword(emailStr, passwordStr)
-                mAuth.currentUser?.sendEmailVerification()
+                //mAuth.currentUser?.sendEmailVerification()
                 startActivity(signUpInfoIntent)
             } else {
                 email.error = "Email already in use"

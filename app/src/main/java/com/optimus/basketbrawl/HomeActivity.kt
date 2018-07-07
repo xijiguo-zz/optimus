@@ -56,7 +56,8 @@ class HomeActivity : AppCompatActivity() {
 
     public fun signoutFirebase(view: android.view.View) {
         //logout_button.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+        FirebaseAuth.getInstance().signOut()
+        (application as userClass).resetUser()
         //}
     }
 

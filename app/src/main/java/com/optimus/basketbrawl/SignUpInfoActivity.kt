@@ -3,6 +3,7 @@ package com.optimus.basketbrawl
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
+import android.app.Application
 import android.support.v7.app.AppCompatActivity
 import android.database.Cursor
 import android.net.Uri
@@ -64,6 +65,7 @@ class SignUpInfoActivity : AppCompatActivity() {
         // Store values at the time of the login attempt.
         val nameStr = profile_name_editText.text.toString()
         val ageInt = profile_age_editText.text.toString().toIntOrNull()
+        val genderStr = profile_gender_editText.text.toString()
         val weightInt = profile_weight_editText.text.toString().toIntOrNull()
         val heightInt = profile_height_editText.text.toString().toIntOrNull()
 
@@ -82,7 +84,15 @@ class SignUpInfoActivity : AppCompatActivity() {
 
         if (!cancel) {
             val intent = Intent(this, HomeActivity::class.java)
+
+            (application as userClass).setUserName(nameStr)
+            if (ageInt != null) { (application as userClass).setUserAge(ageInt!!) }
+            (application as userClass).setUserGender(genderStr)
+            if (weightInt != null) { (application as userClass).setUserWeight(weightInt!!) }
+            if (heightInt != null) { (application as userClass).setUserHeight(heightInt!!) }
+
             startActivity(intent)
         }
     }
 }
+

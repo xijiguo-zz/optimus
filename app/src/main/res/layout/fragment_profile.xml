@@ -52,7 +52,7 @@
 
                 <TextView
                     android:id="@+id/profile_name_textView"
-                    android:layout_width="0dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Name:"
@@ -63,6 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
@@ -84,7 +85,7 @@
 
                 <TextView
                     android:id="@+id/profile_age_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Age:"
@@ -95,6 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
@@ -115,7 +117,7 @@
 
                 <TextView
                     android:id="@+id/profile_gender_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Gender:"
@@ -126,6 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
@@ -147,7 +150,7 @@
 
                 <TextView
                     android:id="@+id/profile_weight_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Weight:"
@@ -158,6 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
@@ -178,7 +182,7 @@
 
                 <TextView
                     android:id="@+id/profile_height_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Height:"
@@ -189,6 +193,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>

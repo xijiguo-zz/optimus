@@ -10,9 +10,6 @@ import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.ImageView
-import android.widget.Toast
-
-
 
 
 /**
@@ -28,8 +25,40 @@ class CourtsFragment : Fragment() {
 
     private var listitems: ArrayList<CourtModel> = ArrayList()
     private var mRecyclerView: RecyclerView? = null
-    private var courts = arrayOf("CIF 1", "CIF 2", "REV")
-    private var images = intArrayOf(R.drawable.court_small, R.drawable.court_small, R.drawable.court_small)
+    private var COURTS = arrayOf("CIF 1", "CIF 2", "REV")
+    private var IMAGES = intArrayOf(R.drawable.court_small, R.drawable.court_small, R.drawable.court_small)
+    private var ADDRESS = arrayOf("250 Columbia St W", "250 Columbia St W", "Ron Eydt Village University of Waterloo Waterloo")
+    private var HOURS = initHoursArray()
+
+    private fun initHoursArray(): Array<ArrayList<String>> {
+        val hours1 = ArrayList<String>()
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        val hours2 = ArrayList<String>()
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        val hours3 = ArrayList<String>()
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        val hours = arrayOf(hours1, hours2, hours3)
+        return hours
+    }
+
     private var mOnCourtSelectionListener: OnCourtSelectionListener? = null;
 
     interface OnCourtSelectionListener {
@@ -81,7 +110,6 @@ class CourtsFragment : Fragment() {
                     val itemPosition = mRecyclerView!!.getChildLayoutPosition(v)
                     val item = listitems[itemPosition]
                     mOnCourtSelectionListener!!.onCourtSelection(item);
-                    Toast.makeText(context, item.courtName, Toast.LENGTH_LONG).show()
                 }
             })
             return MyViewHolder(view)
@@ -112,8 +140,10 @@ class CourtsFragment : Fragment() {
 
         for (i in 0..2) {
             val item = CourtModel()
-            item.courtName = courts[i]
-            item.imageResourceId = images[i]
+            item.courtName = COURTS[i]
+            item.imageResourceId = IMAGES[i]
+            item.courtAddress = ADDRESS[i]
+            item.courtHours = HOURS[i]
             listitems.add(item)
         }
     }

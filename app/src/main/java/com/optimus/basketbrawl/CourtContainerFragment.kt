@@ -30,6 +30,10 @@ class CourtContainerFragment : Fragment(), CourtsFragment.OnCourtSelectionListen
         val fragmentManager = childFragmentManager
         fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         val courtDetailFragment = CourtDetailFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putParcelable("myCourt", court)
+        courtDetailFragment.arguments = bundle
+
 //        val someOtherNestFrag = fragmentManager.findFragmentByTag("Some fragment tag") as SomeOtherNestFrag
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.court_fragment, courtDetailFragment)

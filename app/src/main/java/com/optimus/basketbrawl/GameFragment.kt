@@ -9,7 +9,6 @@ import android.support.annotation.Nullable
 import android.widget.TextView
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.ImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,7 +38,7 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.fragment_court, container, false)
+        val view = inflater.inflate(R.layout.fragment_courts, container, false)
         mRecyclerView = view.findViewById(R.id.card_view)
         mRecyclerView!!.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
@@ -100,7 +99,7 @@ class GameFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment CourtFragment.
+         * @return A new instance of fragment CourtDetailFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic

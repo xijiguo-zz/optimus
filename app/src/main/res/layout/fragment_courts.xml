@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_court"
-    tools:context=".CourtFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".CourtsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/card_view"

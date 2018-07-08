@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import android.support.v4.view.ViewPager
 import android.view.MenuItem
+import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class HomeActivity : AppCompatActivity() {
@@ -51,6 +54,13 @@ class HomeActivity : AppCompatActivity() {
         title = titleName
     }
 
+    public fun signoutFirebase(view: android.view.View) {
+        //logout_button.setOnClickListener {
+        FirebaseAuth.getInstance().signOut()
+        (application as userClass).resetUser()
+        //}
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -60,6 +70,7 @@ class HomeActivity : AppCompatActivity() {
         setupViewPager(pager)
 
         title = pager.adapter!!.getPageTitle(0)
+
 
         pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

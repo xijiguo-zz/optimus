@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "554405595454",
+    "firebase_url": "https://optimus-7a7c9.firebaseio.com",
+    "project_id": "optimus-7a7c9",
+    "storage_bucket": "optimus-7a7c9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554405595454:android:c1805064ff95e736",
+        "android_client_info": {
+          "package_name": "com.optimus.basketbrawl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554405595454-dguo703npoqkjcl4b133m05a6gm142fs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.optimus.basketbrawl",
+            "certificate_hash": "f0a2101633f94ae78c6bf2ba968d8d4f32df8712"
+          }
+        },
+        {
+          "client_id": "554405595454-cntr9d951k4ft0dkgb53vpbhdv9gsarj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGymcwc8nhZvTHbcGRogSn0SD6F8zk6sU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554405595454-cntr9d951k4ft0dkgb53vpbhdv9gsarj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

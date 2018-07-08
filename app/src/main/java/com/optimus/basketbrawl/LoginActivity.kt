@@ -22,6 +22,10 @@ import android.content.Intent
 
 import java.util.ArrayList
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -33,6 +37,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private var mAuthTask: UserLoginTask? = null
+    var mAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +51,90 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             false
         })
 
+        val purpose = intent.getStringExtra("purpose")
+        val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
+        val signUpInfoIntent = Intent(applicationContext, SignUpInfoActivity::class.java)
+
+
+        if (mAuth.currentUser != null && purpose == "login") {
+            startActivity(homeviewIntent)
+            Log.d("INFO", "JAKE LOG IN")
+        }
         email_sign_in_button.setOnClickListener {
-            attemptLogin()
+            if (checkcredentials() && purpose == "signup") {
+                signup()
+            } else if (checkcredentials() && purpose == "login") {
+                login()
+            }
         }
     }
+
+
+    private fun signup() {
+        val emailStr = email.text.toString()
+        val passwordStr = password.text.toString()
+        val signUpInfoIntent = Intent(applicationContext, SignUpInfoActivity::class.java)
+
+        mAuth.createUserWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener { task: Task<AuthResult> ->
+            if (task.isSuccessful) {
+                //mAuth.createUserWithEmailAndPassword("TESTEMAIL@gmail.com", "sdfsda")
+                if (mAuth.currentUser != null) mAuth.signOut()
+                mAuth.signInWithEmailAndPassword(emailStr, passwordStr)
+                //mAuth.currentUser?.sendEmailVerification()
+                startActivity(signUpInfoIntent)
+            } else {
+                email.error = "Email already in use"
+                email.requestFocus()
+            }
+        }
+    }
+    private fun login() {
+        val emailStr = email.text.toString()
+        val passwordStr = password.text.toString()
+        val homeviewIntent = Intent(applicationContext, HomeActivity::class.java)
+
+        mAuth.signInWithEmailAndPassword(emailStr, passwordStr).addOnCompleteListener { task: Task<AuthResult> ->
+            if (task.isSuccessful) {
+                //mAuth.createUserWithEmailAndPassword("TESTEMAIL@gmail.com", "sdfsda")
+                startActivity(homeviewIntent)
+            } else {
+                password.error = "Incorrect username or password"
+                password.requestFocus()
+            }
+        }
+    }
+
+    private fun checkcredentials() : Boolean {
+        email.error = null
+        password.error = null
+
+        // Store values at the time of the login attempt.
+        val emailStr = email.text.toString()
+        val passwordStr = password.text.toString()
+
+        var cancel = false
+        var focusView: View? = null
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(emailStr)) {
+            email.error = getString(R.string.error_field_required) //mAuth.currentUser?.email
+            focusView = email
+            return false
+        } else if (!isEmailValid(emailStr)) {
+            email.error = getString(R.string.error_invalid_email)
+            focusView = email
+            return false
+        }
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(passwordStr) || !isPasswordValid(passwordStr)) {
+            password.error = getString(R.string.error_invalid_password)
+            focusView = password
+            return false
+        }
+        return true
+    }
+
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -110,7 +195,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun isPasswordValid(password: String): Boolean {
         //TODO: Replace this with your own logic
-        return password.length > 4
+        return password.length > 5
     }
 
     /**

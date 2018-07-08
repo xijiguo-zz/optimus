@@ -16,13 +16,13 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/profile_edit_button"
-            android:paddingLeft="@dimen/button_padding"
-            android:paddingRight="@dimen/button_padding"
+            android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="EDIT" />
+            android:focusableInTouchMode="false" android:focusable="false"
+            android:onClick="signoutFirebase"
+            android:text="LOGOUT" />
 
         <ImageView
             android:id="@+id/profile_blank_imageView"
@@ -37,6 +37,9 @@
             android:id="@+id/profile_ll_vertical2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingLeft="21dp"
+            android:paddingRight="21dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -44,124 +47,172 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingTop="7dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/profile_name_textView"
-                    android:layout_width="0dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Name:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                <EditText
-                    android:id="@+id/profile_name_editText"
+                <TextView
+                    android:id="@+id/profile_name_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:id="@+id/profile_age"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingTop="7dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/profile_age_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Age:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                <EditText
-                    android:id="@+id/profile_age_editText"
+                <TextView
+                    android:id="@+id/profile_age_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:id="@+id/profile_gender"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingTop="7dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/profile_gender_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Gender:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                <EditText
-                    android:id="@+id/profile_gender_editText"
+                <TextView
+                    android:id="@+id/profile_gender_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
 
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:id="@+id/profile_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingTop="7dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/profile_weight_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Weight:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                <EditText
-                    android:id="@+id/profile_weight_editText"
+                <TextView
+                    android:id="@+id/profile_weight_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:id="@+id/profile_height"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:paddingTop="7dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/profile_height_textView"
-                    android:layout_width="6dp"
+                    android:layout_width="105dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Height:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-                <EditText
-                    android:id="@+id/profile_height_editText"
+                <TextView
+                    android:id="@+id/profile_height_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="23dp"
                     android:ems="10"
                     android:inputType="textPersonName" />
             </LinearLayout>
 
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
         </LinearLayout>
+
+        <Button
+            android:paddingTop="7dp"
+            android:id="@+id/profile_edit_button"
+            android:layout_width="97dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="EDIT" />
 
     </LinearLayout>
 

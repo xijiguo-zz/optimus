@@ -51,9 +51,9 @@ class ProfileFragment : Fragment() {
         val genderView: TextView = view.findViewById(R.id.profile_gender_TextView) as TextView
         if ((getActivity()!!.application as userClass).getUserGender() != null) genderView.text = (getActivity()!!.application as userClass).getUserGender()
         val weightView: TextView = view.findViewById(R.id.profile_weight_TextView) as TextView
-        if ((getActivity()!!.application as userClass).getUserWeight() != null) weightView.text = (getActivity()!!.application as userClass).getUserWeight().toString()
+        if ((getActivity()!!.application as userClass).getUserWeight() != null) weightView.text = ((getActivity()!!.application as userClass).getUserWeight().toString() + " lb")
         val heightView: TextView = view.findViewById(R.id.profile_height_TextView) as TextView
-        if ((getActivity()!!.application as userClass).getUserHeight() != null) heightView.text = (getActivity()!!.application as userClass).getUserHeight().toString()
+        if ((getActivity()!!.application as userClass).getUserHeight() != null) heightView.text = ((getActivity()!!.application as userClass).getUserHeight().toString() + " cm")
     }
 
     fun popupHandler(view:View,inflater: LayoutInflater,container: ViewGroup?){

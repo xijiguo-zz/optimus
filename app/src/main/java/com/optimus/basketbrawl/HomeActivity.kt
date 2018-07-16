@@ -41,17 +41,19 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        val courtFragment = CourtFragment()
+        val courtContainerFragment = CourtContainerFragment()
         val gameFragment = GameFragment()
         val profileFragment = ProfileFragment()
-        adapter.addFragment(courtFragment, "Court List")
+        adapter.addFragment(courtContainerFragment, "Court List")
         adapter.addFragment(gameFragment, "My Games")
         adapter.addFragment(profileFragment, "Profile")
         viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 3
     }
 
     private fun changeTitle(titleName: CharSequence?) {
         title = titleName
+
     }
 
     public fun signoutFirebase(view: android.view.View) {
@@ -68,6 +70,8 @@ class HomeActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         setupViewPager(pager)
+
+        supportActionBar!!.hide()
 
         title = pager.adapter!!.getPageTitle(0)
 

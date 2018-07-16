@@ -15,28 +15,77 @@ import android.widget.ImageView
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [CourtFragment.OnFragmentInteractionListener] interface
+ * [CourtsFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [CourtFragment.newInstance] factory method to
+ * Use the [CourtsFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class CourtFragment : Fragment() {
+class CourtsFragment : Fragment() {
 
     private var listitems: ArrayList<CourtModel> = ArrayList()
     private var mRecyclerView: RecyclerView? = null
-    private var courts = arrayOf("CIF 1", "CIF 2", "REV")
-    private var images = intArrayOf(R.drawable.court_small, R.drawable.court_small, R.drawable.court_small)
+    private var COURTS = arrayOf("CIF 1", "CIF 2", "REV")
+    private var IMAGES = intArrayOf(R.drawable.court_small, R.drawable.court_small, R.drawable.court_small)
+    private var ADDRESS = arrayOf("250 Columbia St W", "250 Columbia St W", "Ron Eydt Village University of Waterloo Waterloo")
+    private var HOURS = initHoursArray()
+
+    private fun initHoursArray(): Array<ArrayList<String>> {
+        val hours1 = ArrayList<String>()
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        hours1.add("8:00 - 21:00")
+        val hours2 = ArrayList<String>()
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        hours2.add("8:00 - 21:00")
+        val hours3 = ArrayList<String>()
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        hours3.add("0:00 - 24:00")
+        val hours = arrayOf(hours1, hours2, hours3)
+        return hours
+    }
+
+    private var mOnCourtSelectionListener: OnCourtSelectionListener? = null;
+
+    interface OnCourtSelectionListener {
+        fun onCourtSelection(court: CourtModel)
+    }
+
+    fun onAttachToParentFragment(fragment: Fragment) {
+        try {
+            mOnCourtSelectionListener = fragment as OnCourtSelectionListener
+
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                    fragment.toString() + " must implement OnCourtSelectionListener")
+        }
+
+    }
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeList()
+        onAttachToParentFragment(this.parentFragment!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val view = inflater.inflate(R.layout.fragment_court, container, false)
+        val view = inflater.inflate(R.layout.fragment_courts, container, false)
         mRecyclerView = view.findViewById(R.id.card_view)
         mRecyclerView!!.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
@@ -55,6 +104,14 @@ class CourtFragment : Fragment() {
             // create a new view
             val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.recycle_items_court, parent, false)
+            view.setOnClickListener({
+                v ->
+                run {
+                    val itemPosition = mRecyclerView!!.getChildLayoutPosition(v)
+                    val item = listitems[itemPosition]
+                    mOnCourtSelectionListener!!.onCourtSelection(item);
+                }
+            })
             return MyViewHolder(view)
         }
 
@@ -83,8 +140,10 @@ class CourtFragment : Fragment() {
 
         for (i in 0..2) {
             val item = CourtModel()
-            item.courtName = courts[i]
-            item.imageResourceId = images[i]
+            item.courtName = COURTS[i]
+            item.imageResourceId = IMAGES[i]
+            item.courtAddress = ADDRESS[i]
+            item.courtHours = HOURS[i]
             listitems.add(item)
         }
     }
@@ -94,10 +153,10 @@ class CourtFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment CourtFragment.
+         * @return A new instance of fragment CourtsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() = CourtFragment()
+        fun newInstance() = CourtsFragment()
     }
 }

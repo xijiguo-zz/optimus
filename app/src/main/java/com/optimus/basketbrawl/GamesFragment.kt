@@ -16,13 +16,13 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [GameFragment.OnFragmentInteractionListener] interface
+ * [GamesFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [GameFragment.newInstance] factory method to
+ * Use the [GamesFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class GameFragment : Fragment() {
+class GamesFragment : Fragment() {
 
     private var listitems: ArrayList<GameModel> = ArrayList()
     private var mRecyclerView: RecyclerView? = null
@@ -33,6 +33,7 @@ class GameFragment : Fragment() {
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeList()
+        onAttachToParentFragment(this.parentFragment!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -57,6 +58,14 @@ class GameFragment : Fragment() {
             // create a new view
             val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.recycle_items_game, parent, false)
+            view.setOnClickListener({
+                v ->
+                run {
+                    val itemPosition = mRecyclerView!!.getChildLayoutPosition(v)
+                    val item = listitems[itemPosition]
+                    mOnGameSelectionListener!!.onGameSelection(item)
+                }
+            })
             return MyViewHolder(view)
         }
 
@@ -94,6 +103,23 @@ class GameFragment : Fragment() {
         }
     }
 
+    private var mOnGameSelectionListener: OnGameSelectionListener? = null;
+
+    interface OnGameSelectionListener {
+        fun onGameSelection(game: GameModel)
+    }
+
+    fun onAttachToParentFragment(fragment: Fragment) {
+        try {
+            mOnGameSelectionListener = fragment as OnGameSelectionListener
+
+        } catch (e: ClassCastException) {
+            throw ClassCastException(
+                    fragment.toString() + " must implement OnCourtSelectionListener")
+        }
+
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -103,6 +129,6 @@ class GameFragment : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() = GameFragment()
+        fun newInstance() = GamesFragment()
     }
 }

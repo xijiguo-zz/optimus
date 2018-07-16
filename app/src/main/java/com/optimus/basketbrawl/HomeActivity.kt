@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import android.support.v4.view.ViewPager
 import android.view.MenuItem
-import android.view.View
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class HomeActivity : AppCompatActivity() {
@@ -42,10 +40,10 @@ class HomeActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         val courtContainerFragment = CourtContainerFragment()
-        val gameFragment = GameFragment()
+        val gameContainerFragment = GameContainerFragment()
         val profileFragment = ProfileFragment()
         adapter.addFragment(courtContainerFragment, "Court List")
-        adapter.addFragment(gameFragment, "My Games")
+        adapter.addFragment(gameContainerFragment, "My Games")
         adapter.addFragment(profileFragment, "Profile")
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3

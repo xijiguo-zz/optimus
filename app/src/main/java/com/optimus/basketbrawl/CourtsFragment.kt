@@ -109,7 +109,7 @@ class CourtsFragment : Fragment() {
                 run {
                     val itemPosition = mRecyclerView!!.getChildLayoutPosition(v)
                     val item = listitems[itemPosition]
-                    mOnCourtSelectionListener!!.onCourtSelection(item);
+                    mOnCourtSelectionListener!!.onCourtSelection(item)
                 }
             })
             return MyViewHolder(view)

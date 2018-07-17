@@ -26,6 +26,7 @@ class GamesFragment : Fragment() {
 
     private var listitems: ArrayList<GameModel> = ArrayList()
     private var mRecyclerView: RecyclerView? = null
+    private var mAdapter: MyAdapter ?= null
     private var games = arrayOf("Game 1", "Game 2", "Game 3")
     private var dates = arrayListOf<Calendar>(Calendar.getInstance(),
             Calendar.getInstance(), Calendar.getInstance())
@@ -45,7 +46,8 @@ class GamesFragment : Fragment() {
         val mLayoutManager = LinearLayoutManager(activity)
         mLayoutManager.orientation = LinearLayoutManager.VERTICAL
         if ((listitems.size > 0) and (mRecyclerView != null)) {
-            mRecyclerView!!.adapter = MyAdapter(listitems)
+            mAdapter = MyAdapter(listitems)
+            mRecyclerView!!.adapter = mAdapter
         }
         mRecyclerView!!.layoutManager = mLayoutManager
 
@@ -118,6 +120,14 @@ class GamesFragment : Fragment() {
                     fragment.toString() + " must implement OnCourtSelectionListener")
         }
 
+    }
+
+    fun updateGames() {
+        var newGames = (activity!!.application as userClass).games!!
+
+        listitems.add(newGames[newGames.size-1])
+
+        mAdapter!!.notifyDataSetChanged()
     }
 
     companion object {

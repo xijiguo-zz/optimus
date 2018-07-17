@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import android.support.v4.view.ViewPager
+import android.util.Log
 import android.view.MenuItem
 import com.google.firebase.auth.FirebaseAuth
 
@@ -12,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 class HomeActivity : AppCompatActivity() {
 
     private var prevMenuItem: MenuItem? = null
+    private var mGameContainerFragment: GameContainerFragment? = null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -25,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
 //                message.setText(R.string.title_dashboard)
                 pager.currentItem = 1
                 changeTitle(pager.adapter!!.getPageTitle(1))
+//                mGameContainerFragment!!.updateGames()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_profile -> {
@@ -40,10 +43,10 @@ class HomeActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         val courtContainerFragment = CourtContainerFragment()
-        val gameContainerFragment = GameContainerFragment()
+        mGameContainerFragment = GameContainerFragment()
         val profileFragment = ProfileFragment()
         adapter.addFragment(courtContainerFragment, "Court List")
-        adapter.addFragment(gameContainerFragment, "My Games")
+        adapter.addFragment(mGameContainerFragment!!, "My Games")
         adapter.addFragment(profileFragment, "Profile")
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3
@@ -52,6 +55,11 @@ class HomeActivity : AppCompatActivity() {
     private fun changeTitle(titleName: CharSequence?) {
         title = titleName
 
+    }
+
+    fun updateGames() {
+        Log.i("Steven", "Update games")
+        mGameContainerFragment!!.updateGames()
     }
 
     public fun signoutFirebase(view: android.view.View) {

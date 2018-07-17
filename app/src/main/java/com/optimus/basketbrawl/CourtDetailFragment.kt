@@ -6,10 +6,13 @@ import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -26,6 +29,9 @@ class CourtDetailFragment : Fragment() {
 
     private var DATE_PREFIX = arrayOf("M", "Tu", "W", "Th", "F", "Sa", "Su")
     private var mGames = ArrayList<GameModel>()
+    private var mRecyclerView: RecyclerView? = null
+    private var mAdapter: MyAdapter? = null
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +60,39 @@ class CourtDetailFragment : Fragment() {
         addGameButton.setOnClickListener {
             popupHandler(view, inflater, container)
         }
+
+        mRecyclerView = view.findViewById(R.id.court_games)
+        val mLayoutManager = LinearLayoutManager(activity)
+        mLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        mRecyclerView!!.layoutManager = mLayoutManager
         return view
+    }
+
+    inner class MyAdapter(private val list: java.util.ArrayList<GameModel>) : RecyclerView.Adapter<MyViewHolder>() {
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+            // create a new view
+            val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.recycle_items_game, parent, false)
+            return MyViewHolder(view)
+        }
+
+        override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+            holder.gameNameTextView.text = list[position].gameName
+            val dateFormat = SimpleDateFormat.getDateInstance()
+            holder.gameStartTextView.text = dateFormat.format(list[position].startTime!!.time)
+        }
+
+        override fun getItemCount(): Int {
+            return list.size
+        }
+    }
+
+    inner class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+
+        var gameNameTextView: TextView = v.findViewById<View>(R.id.card_game_name) as TextView
+        var gameStartTextView: TextView = v.findViewById(R.id.card_game_start) as TextView
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -81,6 +119,15 @@ class CourtDetailFragment : Fragment() {
             game.startTime.set(year, month, day, hour, min)
 
             mGames.add(game)
+            (activity!!.application as userClass).games!!.add(game)
+            (activity as HomeActivity).updateGames()
+
+            if ((mGames.size == 1) and (mRecyclerView != null)) {
+                mAdapter = MyAdapter(mGames)
+                mRecyclerView!!.adapter = MyAdapter(mGames)
+            } else {
+                mAdapter!!.notifyDataSetChanged()
+            }
 
             Toast.makeText(activity!!.applicationContext,"Added game", Toast.LENGTH_SHORT).show()
         }

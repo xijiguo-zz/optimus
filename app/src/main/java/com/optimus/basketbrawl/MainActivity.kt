@@ -27,11 +27,13 @@ class MainActivity : AppCompatActivity() {
 }
 
 class userClass : Application() {
+
     var name: String? = "Jake Jin"
     var age: Int? = 21
     var gender: String? = "Male"
     var weight: Int? = 160
     var height: Int? = 190
+    var games: ArrayList<GameModel> ?= ArrayList()
 
     override fun onCreate() {
         super.onCreate()

@@ -23,6 +23,7 @@ class GameContainerFragment : Fragment(), GamesFragment.OnGameSelectionListener 
 
     private val BACK_STACK_ROOT_TAG = "root_fragment"
     private var mToolbar: Toolbar? = null
+    private var mGamesFragment: GamesFragment? = null
 
     override fun onGameSelection(game: GameModel) {
         val fragmentManager = childFragmentManager
@@ -51,9 +52,9 @@ class GameContainerFragment : Fragment(), GamesFragment.OnGameSelectionListener 
 
         val fragmentManager = childFragmentManager
         fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        val gamesFragment = GamesFragment.newInstance()
+        mGamesFragment = GamesFragment.newInstance()
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.body_fragment, gamesFragment)
+        fragmentTransaction.replace(R.id.body_fragment, mGamesFragment!!)
                 .addToBackStack(null)
                 .commit()
 
@@ -67,6 +68,10 @@ class GameContainerFragment : Fragment(), GamesFragment.OnGameSelectionListener 
         })
 
         return view
+    }
+
+    fun updateGames() {
+        mGamesFragment!!.updateGames()
     }
 
     companion object {

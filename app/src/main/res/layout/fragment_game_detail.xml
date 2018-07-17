@@ -10,13 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size"
-        android:textColor="@android:color/black"
-        android:layout_weight="1" />
+        android:textColor="@android:color/black">
+    </TextView>
     <TextView
         android:id="@+id/game_detail_starttime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_weight="1" />
+        android:textColor="@android:color/darker_gray">
+    </TextView>
 </LinearLayout>

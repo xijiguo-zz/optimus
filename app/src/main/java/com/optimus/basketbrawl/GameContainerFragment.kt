@@ -65,6 +65,7 @@ class GameContainerFragment : Fragment(), GamesFragment.OnGameSelectionListener 
             val fragmentManager = childFragmentManager
             fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             mToolbar!!.navigationIcon = null
+            mToolbar!!.title = "My Games"
         })
 
         return view

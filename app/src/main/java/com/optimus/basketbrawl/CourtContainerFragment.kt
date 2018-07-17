@@ -63,6 +63,7 @@ class CourtContainerFragment : Fragment(), CourtsFragment.OnCourtSelectionListen
             val fragmentManager = childFragmentManager
             fragmentManager.popBackStack(BACK_STACK_ROOT_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             mToolbar!!.navigationIcon = null
+            mToolbar!!.title = "Court List"
         })
 
         return view

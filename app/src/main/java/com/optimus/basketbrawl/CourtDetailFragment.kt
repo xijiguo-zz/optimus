@@ -1,18 +1,17 @@
 package com.optimus.basketbrawl
 
-import android.media.Image
+import android.app.AlertDialog
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.support.annotation.Nullable
-import android.widget.TextView
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.LinearLayoutManager
-import android.widget.ImageView
-import org.w3c.dom.Text
-
+import android.widget.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * A simple [Fragment] subclass.
@@ -26,7 +25,9 @@ import org.w3c.dom.Text
 class CourtDetailFragment : Fragment() {
 
     private var DATE_PREFIX = arrayOf("M", "Tu", "W", "Th", "F", "Sa", "Su")
+    private var mGames = ArrayList<GameModel>()
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -49,7 +50,49 @@ class CourtDetailFragment : Fragment() {
         }
         courtHours.text = courtHoursText
 
+        val addGameButton: Button = view.findViewById(R.id.add_game_button)
+        addGameButton.setOnClickListener {
+            popupHandler(view, inflater, container)
+        }
         return view
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun popupHandler(view:View, inflater: LayoutInflater, container: ViewGroup?){
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setTitle("Add Game")
+        val popupView = inflater.inflate(R.layout.popup_add_game, container,false)
+
+        dialogBuilder.setView(popupView)
+        dialogBuilder.setPositiveButton("Confirm"){dialog, which ->
+            val game = GameModel()
+            game.gameName = popupView.findViewById<EditText>(R.id.popup_game_name).text.toString()
+
+            val datePicker = popupView.findViewById<DatePicker>(R.id.popup_game_datepicker)
+            val day = datePicker.dayOfMonth
+            val month = datePicker.month + 1
+            val year = datePicker.year
+
+            val timePicker = popupView.findViewById<TimePicker>(R.id.popup_game_timepicker)
+            val hour = timePicker.hour
+            val min = timePicker.minute
+
+            game.startTime = Calendar.getInstance()
+            game.startTime.set(year, month, day, hour, min)
+
+            mGames.add(game)
+
+            Toast.makeText(activity!!.applicationContext,"Added game", Toast.LENGTH_SHORT).show()
+        }
+        dialogBuilder.setNeutralButton("Cancel"){_,_ ->
+            Toast.makeText(activity!!.applicationContext,"Game cancelled", Toast.LENGTH_SHORT).show()
+        }
+        val dialog: AlertDialog = dialogBuilder.create()
+        dialog.show()
+        dialog.window.setLayout(750, 1200)
+
+        dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.RED)
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED)
     }
 
     companion object {

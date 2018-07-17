@@ -27,11 +27,11 @@ class MainActivity : AppCompatActivity() {
 }
 
 class userClass : Application() {
-    var name: String? = null
-    var age: Int? = null
-    var gender: String? = null
-    var weight: Int? = null
-    var height: Int? = null
+    var name: String? = "Jake Jin"
+    var age: Int? = 21
+    var gender: String? = "Male"
+    var weight: Int? = 160
+    var height: Int? = 190
 
     override fun onCreate() {
         super.onCreate()
